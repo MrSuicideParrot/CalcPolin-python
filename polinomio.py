@@ -1,3 +1,5 @@
+from monomio import Monomio
+
 class Polinomio:
     def __init__(self):
         self.polinomio = []
@@ -20,19 +22,35 @@ class Polinomio:
         self.polinomio = aux
 
     def integra(self, target):
-        index = 0
+        self.normalisa()
         for monom in self.polinomio:
-            if monom.variavel is not None:
-                if target in monom.variavel or monom.variavel is None:
-                    monom.raiseExp(target)
-            else:
-                self.polinomio[index] = None
-            index += 1
+            monom.raiseExp(target)
+
+    def sum(self, p2):
+        p1 = self
+        p1.normalisa()
+        p2.normalisa()
+        aux = []
+
+        for x1 in range(len(p1)):
+            aux.append(Monomio(self.polinomio[x1].coeficiente, self.polinomio[x1].variavel, self.polinomio[x1].expoente))
+            for x2 in range(x1+1, len(p2)):
+                if self.polinomio[x1].variavel == self.polinomio[x2].variavel and self.polinomio[x1].expoente == self.polinomio[x2].expoente:
+                    self.aux[x1].coeficiente += self.polinomio[x2].coeficiente
+                    break
+
+        self.polinomio = aux
+
+    def deriva(self, target):
+        self.normalisa()
+        for x1 in range(len(self.polinomio)):
+            if target in self.polinomio[x1].coeficiente or self.polinomio[x1].coeficiente is None:
+                resultado = self.polinomio[x1].decreasesExp()
+                if resultado:
+                    self.polinomio[x1] = None
 
         self.polinomio = filter(lambda x: x is not None, self.polinomio)
 
-    def deriva(self, target):
-        pass
 
     def __iter__(self):
         return self.polinomio.__iter__()

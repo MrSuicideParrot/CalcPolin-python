@@ -3,6 +3,7 @@ class Monomio:
         self.coeficiente = coeficiente
         self.variavel = variavel
         self.expoente = expoente
+        self.aux = None
 
     def decreasesExp(self):
         if self.expoente == 1:
@@ -18,8 +19,11 @@ class Monomio:
         if self.variavel is None:
             self.variavel = target
             self.expoente = 1
-        else:
+        elif target  in self.variavel:
             self.expoente += 1
+        else:
+            self.aux = target
+
 
     def similar(self, t2):
         if t2 is None:
