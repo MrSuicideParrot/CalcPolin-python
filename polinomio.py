@@ -61,3 +61,11 @@ class Polinomio:
     @property
     def __len__(self):
         return self.polinomio.__len__()
+
+
+def main():
+    """ Função para testes"""
+    pass
+
+if __name__ == '__main__':
+    main()
