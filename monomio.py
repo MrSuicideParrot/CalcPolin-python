@@ -5,6 +5,7 @@ class Monomio:
         self.expoente = expoente
         self.aux = None
 
+    '''Derivar monómio'''
     def decreasesExp(self):
         if self.expoente == 1:
             self.variavel = None
@@ -12,15 +13,18 @@ class Monomio:
         elif self.expoente == 0:
             return True  # e necessário eliminar
         else:
+            self.coeficiente *= self.expoente
             self.expoente -= 1
         return False
 
+    '''Integrar monómio'''
     def raiseExp(self, target):
         if self.variavel is None:
             self.variavel = target
             self.expoente = 1
         elif target  in self.variavel:
             self.expoente += 1
+            self.coeficiente /= self.expoente
         else:
             self.aux = target
 
