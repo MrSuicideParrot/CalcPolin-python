@@ -1,10 +1,17 @@
 from monomio import Monomio
 
 class Polinomio:
+    """
+    :type polinomio: list[Monomio]
+    """
     def __init__(self):
         self.polinomio = []
 
     def append(self, monom):
+        """
+        :param monom: Monómio que pretende fazer input
+        :type monom: Monomio
+        """
         self.polinomio.append(monom)
 
     def normalisa(self):
@@ -22,11 +29,19 @@ class Polinomio:
         self.polinomio = aux
 
     def integra(self, target):
+        '''
+        :param target: Variável ao qual pretende integrar
+        :type target: str
+        '''
         self.normalisa()
         for monom in self.polinomio:
             monom.raiseExp(target)
 
     def sum(self, p2):
+        """
+        :param p2: Segunda equação
+        :type p2: Polinomio
+        """
         p1 = self
         p1.normalisa()
         p2.normalisa()
@@ -42,6 +57,10 @@ class Polinomio:
         self.polinomio = aux
 
     def deriva(self, target):
+        '''
+         :param target: Variável ao qual pretende derivar
+         :type target: str
+         '''
         self.normalisa()
         for x1 in range(len(self.polinomio)):
             if target in self.polinomio[x1].coeficiente or self.polinomio[x1].coeficiente is None:
