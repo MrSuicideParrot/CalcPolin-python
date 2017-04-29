@@ -100,13 +100,16 @@ class Polinomio:
         p2.normalisa()
         aux = []
 
-        for x1 in range(len(p1)):
-            aux.append(Monomio(self.polinomio[x1].coeficiente, self.polinomio[x1].variavel, self.polinomio[x1].expoente))
-            for x2 in range(x1+1, len(p2)):
-                if self.polinomio[x1].variavel == self.polinomio[x2].variavel and self.polinomio[x1].expoente == self.polinomio[x2].expoente:
-                    self.aux[x1].coeficiente += self.polinomio[x2].coeficiente
+        for x1 in range(len(p1.polinomio)):
+            aux.append(Monomio(self.p1[x1].coeficiente, self.p1[x1].variavel, self.p1[x1].expoente))
+            for x2 in range(len(p2.polinomio)):
+                if self.p1[x1].variavel == self.p2[x2].variavel and self.p1[x1].expoente == self.p2[x2].expoente:
+                    self.aux[x1].coeficiente += self.p2[x2].coeficiente
+                    self.p2[x2] = None
                     break
 
+        p2.polinomio = list(filter(lambda x: x is not None, self.p2))
+        map(lambda x: aux.append(*x),p2)
         self.polinomio = aux
 
     def deriva(self, target):

@@ -7,6 +7,7 @@ from polinomio import Polinomio, Monomio
 class rootWindow:
     def __init__(self, master):
 
+        self.last = None
         '''Definições'''
 
         '''Labels'''
@@ -35,7 +36,8 @@ class rootWindow:
         self.butCop = Button(root, text='Somar', width=18, command=self.somar).grid(row=4, column=4, columnspan = 2)
 
         self.flag = False
-        R1 = Radiobutton(root, text='Utilizar último valor cálculado', state=DISABLED, variable=self.flag, value=True).grid(row=3,columnspan=4)
+        self.R1 = Radiobutton(root, text='Utilizar último valor cálculado', state=DISABLED, variable=self.flag, value=True)
+        self.R1.grid(row=3,columnspan=4)
 
 
 
@@ -83,39 +85,68 @@ class rootWindow:
             return None
 
     def deriva(self):
-        polin = self.getOneEntry()
+        if not self.flag:
+            polin = self.getOneEntry()
 
-        if polin is None:
-            messagebox.showerror('Equação inválida','Não se encontra nenhuma função!')
-            return
+            if polin is None:
+                messagebox.showerror('Equação inválida','Não se encontra nenhuma função!')
+                return
+        else:
+            polin = self.last
 
         if self.entrDer.get() is '':
             messagebox.showerror('Variável inválida','Não se encontra nenhuma variável!')
             return
 
         polin.deriva(self.entrDer.get())
+        self.last = polin
         self.entrSol.config(text=polin.__str__())
-     #   self.flag = False
+        self.flag = False
+
+        f1 = True
+        for aux in polin:
+            if aux.aux is not None:
+                f1 = False
+        if f1:
+            self.R1.config(state=ACTIVE)
+        else:
+            self.R1.config(state=DISABLED)
 
     def integra(self):
-        polin = self.getOneEntry()
+        if not self.flag:
+            polin = self.getOneEntry()
 
-        if polin is None:
-            messagebox.showerror('Equação inválida','Não se encontra nenhuma função!')
-            return
+            if polin is None:
+                messagebox.showerror('Equação inválida','Não se encontra nenhuma função!')
+                return
+        else:
+            polin = self.last
 
         if self.entrInt.get() is '':
             messagebox.showerror('Variável inválida','Não se encontra nenhuma variável!')
             return
 
         polin.integra(self.entrInt.get())
+        self.last = polin
         self.entrSol.config(text=polin.__str__())
+        self.flag = False
+
+        f1 = True
+        for aux in polin:
+            if aux.aux is not None:
+                f1 = False
+        if f1:
+            self.R1.config(state=ACTIVE)
+        else:
+            self.R1.config(state=DISABLED)
 
     def somar(self):
         polin1 = self.entryParser(self.entrEq1)
         polin2 = self.entryParser(self.entrEq2)
         polin1.sum(polin2)
         self.entrSol.config(text=polin1.__str__())
+        '''
+        somar'''
 
 
 root = Tk()
