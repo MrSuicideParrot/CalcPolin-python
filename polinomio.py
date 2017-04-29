@@ -1,4 +1,10 @@
 class Monomio:
+    """
+    :type coeficiente: int
+    :type variavel: str
+    :type expoente: int
+    
+    """
     def __init__(self, coeficiente, variavel=None, expoente=None):
         self.coeficiente = coeficiente
         self.variavel = variavel
@@ -10,7 +16,7 @@ class Monomio:
         if self.expoente == 1:
             self.variavel = None
             self.expoente = None
-        elif self.expoente == 0:
+        elif self.expoente == 0 or self.expoente is None:
             return True  # e necessário eliminar
         else:
             self.coeficiente *= self.expoente
@@ -34,16 +40,19 @@ class Monomio:
             return False
 
         t1 = self
-        if (t1.coeficiente == t2.coeficiente) and (t1.expoente == t2.expoente):
+        if (t1.variavel == t2.variavel) and (t1.expoente == t2.expoente):
             return True
         else:
             return False
 
     def __str__(self):
         if self.variavel is not None:
-            return str(self.coeficiente)+'*'+self.variavel+str(self.expoente)
-
-
+            if self.aux is None:
+                return str(self.coeficiente)+'*'+self.variavel+'^'+str(self.expoente)
+            else:
+                return str(self.coeficiente) + '*' +self.aux+'*'+self.variavel + '^' + str(self.expoente)
+        else:
+            return str(self.coeficiente)
 class Polinomio:
     """
     :type polinomio: list[Monomio]
@@ -107,12 +116,14 @@ class Polinomio:
          '''
         self.normalisa()
         for x1 in range(len(self.polinomio)):
-            if target in self.polinomio[x1].coeficiente or self.polinomio[x1].coeficiente is None:
+            #teste = self.polinomio[x1].variavel == target
+            if self.polinomio[x1].variavel == target  or self.polinomio[x1].variavel is None:
                 resultado = self.polinomio[x1].decreasesExp()
                 if resultado:
                     self.polinomio[x1] = None
 
-        self.polinomio = filter(lambda x: x is not None, self.polinomio)
+        self.polinomio = list(filter(lambda x: x is not None, self.polinomio))
+
 
 
     def __iter__(self):
@@ -124,6 +135,16 @@ class Polinomio:
     @property
     def __len__(self):
         return self.polinomio.__len__()
+
+    def __str__(self):
+        res = ''
+        if self.polinomio is not []:
+            res = self.polinomio[0].__str__()
+
+        for aux in self.polinomio[1:]:
+            res = res + '+' + aux.__str__()
+
+        return res
 
 
 def main():
