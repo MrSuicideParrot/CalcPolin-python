@@ -36,7 +36,7 @@ class rootWindow:
         self.butCop = Button(root, text='Somar', width=18, command=self.somar).grid(row=4, column=4, columnspan = 2)
 
         self.flag = False
-        self.R1 = Radiobutton(root, text='Utilizar último valor cálculado', state=DISABLED, variable=self.flag, value=True)
+        self.R1 = Radiobutton(root, text='Utilizar último valor cálculado', state=DISABLED, variable=self.flag, value=False)
         self.R1.grid(row=3,columnspan=4)
 
 
@@ -103,6 +103,9 @@ class rootWindow:
         self.entrSol.config(text=polin.__str__())
         self.flag = False
 
+        '''Verificação para saber se pode ou não permitir que a função seje voltada a usar
+        no caso de ela tiver duas variaveis não pode ser voltada a utilizar
+        '''
         f1 = True
         for aux in polin:
             if aux.aux is not None:
@@ -131,6 +134,9 @@ class rootWindow:
         self.entrSol.config(text=polin.__str__())
         self.flag = False
 
+        '''Verificação para saber se pode ou não permitir que a função seje voltada a usar
+        no caso de ela tiver duas variaveis não pode ser voltada a utilizar
+        '''
         f1 = True
         for aux in polin:
             if aux.aux is not None:
@@ -145,8 +151,26 @@ class rootWindow:
         polin2 = self.entryParser(self.entrEq2)
         polin1.sum(polin2)
         self.entrSol.config(text=polin1.__str__())
-        '''
-        somar'''
+
+    def normaliza(self):
+        if not self.flag:
+            polin = self.getOneEntry()
+
+            if polin is None:
+                messagebox.showerror('Equação inválida','Não se encontra nenhuma função!')
+                return
+        else:
+            polin = self.last
+
+        if self.entrInt.get() is '':
+            messagebox.showerror('Variável inválida','Não se encontra nenhuma variável!')
+            return
+
+        polin.normalisa()
+        self.entrSol.config(text=polin.__str__())
+        self.flag = False
+        self.R1.config(state=ACTIVE)
+
 
 
 root = Tk()

@@ -30,7 +30,7 @@ class Monomio:
             self.expoente = 1
         elif target  in self.variavel:
             self.expoente += 1
-            self.coeficiente /= self.expoente
+            self.coeficiente = self.coeficiente/self.expoente
         else:
             self.aux = target
 
@@ -101,16 +101,15 @@ class Polinomio:
         aux = []
 
         for x1 in range(len(p1.polinomio)):
-            aux.append(Monomio(self.p1[x1].coeficiente, self.p1[x1].variavel, self.p1[x1].expoente))
+            aux.append(Monomio(p1[x1].coeficiente, p1[x1].variavel, p1[x1].expoente))
             for x2 in range(len(p2.polinomio)):
-                if self.p1[x1].variavel == self.p2[x2].variavel and self.p1[x1].expoente == self.p2[x2].expoente:
-                    self.aux[x1].coeficiente += self.p2[x2].coeficiente
-                    self.p2[x2] = None
+                if p1[x1].variavel == p2[x2].variavel and p1[x1].expoente == p2[x2].expoente:
+                    aux[x1].coeficiente += p2[x2].coeficiente
+                    p2[x2] = None
                     break
 
-        p2.polinomio = list(filter(lambda x: x is not None, self.p2))
-        map(lambda x: aux.append(*x),p2)
-        self.polinomio = aux
+        p2.polinomio = list(filter(lambda x: x is not None, p2))
+        self.polinomio = aux + p2.polinomio
 
     def deriva(self, target):
         '''
@@ -128,12 +127,17 @@ class Polinomio:
         self.polinomio = list(filter(lambda x: x is not None, self.polinomio))
 
 
-
     def __iter__(self):
         return self.polinomio.__iter__()
 
     def __next__(self):
         return self.polinomio.__next__()
+
+    def __getitem__(self, item):
+        return self.polinomio[item]
+
+    def __setitem__(self, key, value):
+        self.polinomio[key] = value
 
     @property
     def __len__(self):
@@ -148,6 +152,7 @@ class Polinomio:
             res = res + '+' + aux.__str__()
 
         return res
+
 
 
 def main():
