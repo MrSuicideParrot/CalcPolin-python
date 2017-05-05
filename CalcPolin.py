@@ -36,7 +36,7 @@ class rootWindow:
         self.butCop = Button(root, text='Somar', width=18, command=self.somar).grid(row=4, column=4, columnspan = 2)
 
         self.flag = False
-        self.R1 = Radiobutton(root, text='Utilizar último valor cálculado', state=DISABLED, variable=self.flag, value=False)
+        self.R1 = Button(root, text='Utilizar último valor cálculado', state=DISABLED, command=self.changeState)
         self.R1.grid(row=3,columnspan=4)
 
 
@@ -101,7 +101,7 @@ class rootWindow:
         polin.deriva(self.entrDer.get())
         self.last = polin
         self.entrSol.config(text=polin.__str__())
-        self.flag = False
+        #self.flag = False
 
         '''Verificação para saber se pode ou não permitir que a função seje voltada a usar
         no caso de ela tiver duas variaveis não pode ser voltada a utilizar
@@ -132,7 +132,7 @@ class rootWindow:
         polin.integra(self.entrInt.get())
         self.last = polin
         self.entrSol.config(text=polin.__str__())
-        self.flag = False
+        #self.flag = False
 
         '''Verificação para saber se pode ou não permitir que a função seje voltada a usar
         no caso de ela tiver duas variaveis não pode ser voltada a utilizar
@@ -168,10 +168,12 @@ class rootWindow:
 
         polin.normalisa()
         self.entrSol.config(text=polin.__str__())
-        self.flag = False
+        #self.flag = False
         self.R1.config(state=ACTIVE)
 
-
+    def changeState(self):
+        self.entrEq1.delete(0, 'end')
+        self.entrEq1.insert(0,self.last)
 
 root = Tk()
 root.title('Calculadora de Polinómios')
