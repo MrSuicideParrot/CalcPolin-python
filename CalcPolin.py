@@ -63,16 +63,14 @@ class rootWindow:
 
         i = 0  # type i: int
         while (i<len(aux)):
-            try:
-                if aux[i].isdigit() and aux[i+1] in alphas and aux[i+2].isdigit():
+            if aux[i].isdigit() and aux[i+1] in alphas and aux[i+2].isdigit():
                     expressao.append(Monomio(int(aux[i]), aux[i+1],int(aux[i+2])))
                     i += 3
-                else:
+            elif aux[i].isdigit():
                     expressao.append(Monomio(int(aux[i])))
                     i += 1
-            except:
-                expressao.append(Monomio(int(aux[i])))
-                i += 1
+            else:
+                raise ValueError
 
         return expressao
 
@@ -86,7 +84,11 @@ class rootWindow:
 
     def deriva(self):
         if not self.flag:
-            polin = self.getOneEntry()
+            try:
+                polin = self.getOneEntry()
+            except:
+                messagebox.showerror('Equação inválida', 'Erro de síntaxe!')
+                return
 
             if polin is None:
                 messagebox.showerror('Equação inválida','Não se encontra nenhuma função!')
@@ -117,7 +119,11 @@ class rootWindow:
 
     def integra(self):
         if not self.flag:
-            polin = self.getOneEntry()
+            try:
+                polin = self.getOneEntry()
+            except:
+                messagebox.showerror('Equação inválida', 'Erro de síntaxe!')
+                return
 
             if polin is None:
                 messagebox.showerror('Equação inválida','Não se encontra nenhuma função!')
@@ -147,8 +153,13 @@ class rootWindow:
             self.R1.config(state=DISABLED)
 
     def somar(self):
-        polin1 = self.entryParser(self.entrEq1)
-        polin2 = self.entryParser(self.entrEq2)
+        try:
+            polin1 = self.entryParser(self.entrEq1)
+            polin2 = self.entryParser(self.entrEq2)
+        except:
+            messagebox.showerror('Equação inválida', 'Não se encontra uma das funções ou erro de síntax!')
+            return
+
         polin1.sum(polin2)
         self.entrSol.config(text=polin1.__str__())
 
