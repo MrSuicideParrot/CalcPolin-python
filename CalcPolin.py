@@ -64,7 +64,7 @@ class rootWindow:
         i = 0  # type i: int
         while (i<len(aux)):
             try:
-                if aux[i] in nums and aux[i+1] in alphas and aux[i+2] in nums:
+                if aux[i].isdigit() and aux[i+1] in alphas and aux[i+2].isdigit():
                     expressao.append(Monomio(int(aux[i]), aux[i+1],int(aux[i+2])))
                     i += 3
                 else:
