@@ -32,7 +32,7 @@ class rootWindow:
 
         self.butDer = Button(root, text='Derivar', width=12, command=self.deriva).grid(row=1, column=4)
         self.butInt = Button(root, text='Integrar', width=12, command=self.integra).grid(row=2, column=4)
-        self.butNor = Button(root, text='Normalizar', width=18).grid(row=3, column=4,columnspan = 2)
+        self.butNor = Button(root, text='Normalizar', width=18, command=self.normaliza).grid(row=3, column=4,columnspan = 2)
         self.butCop = Button(root, text='Somar', width=18, command=self.somar).grid(row=4, column=4, columnspan = 2)
 
         self.flag = False
@@ -162,13 +162,8 @@ class rootWindow:
         else:
             polin = self.last
 
-        if self.entrInt.get() is '':
-            messagebox.showerror('Variável inválida','Não se encontra nenhuma variável!')
-            return
-
         polin.normalisa()
         self.entrSol.config(text=polin.__str__())
-        #self.flag = False
         self.R1.config(state=ACTIVE)
 
     def changeState(self):
