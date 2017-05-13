@@ -10,7 +10,7 @@ Para iniciar o programa basta executar na linha de comandos a seguinte instruç�
  $ python CalcPolin.py
 ```
 Se no computador, todos os módulos estejam bem instalados deverá aparecer a seguinte interface:
-<center>![](http://storage2.static.itmages.com/i/17/0513/h_1494702185_6641697_6c1c628bf5.png)<center\>
+![Imagem GUI](http://storage2.static.itmages.com/i/17/0513/h_1494702185_6641697_6c1c628bf5.png)
 
 Do lado direito dos botões Derivar e Integrar deverão ser inseridas as variáveis ao qual queremos efetuar a ação.
 
