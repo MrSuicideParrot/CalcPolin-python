@@ -58,19 +58,30 @@ class rootWindow:
         expressao = Polinomio()
         monomio1 = Word(nums)
         monomio2 = Word(nums)+Suppress('*')+Word(alphas)+Suppress('^')+Word(nums)
-        parser = monomio1 ^ monomio2 +Optional(Suppress('+'))
+        parser = monomio2^monomio1 +Optional(Suppress('+'))
         aux = OneOrMore(parser).parseString(entry.get())
 
         i = 0  # type i: int
         while (i<len(aux)):
-            if aux[i].isdigit() and aux[i+1] in alphas and aux[i+2].isdigit():
-                    expressao.append(Monomio(int(aux[i]), aux[i+1],int(aux[i+2])))
-                    i += 3
-            elif aux[i].isdigit():
-                    expressao.append(Monomio(int(aux[i])))
-                    i += 1
-            else:
-                raise ValueError
+            try:
+                if aux[i].isdigit() and aux[i+1] in alphas and aux[i+2].isdigit():
+                        expressao.append(Monomio(int(aux[i]), aux[i+1],int(aux[i+2])))
+                        i += 3
+                elif aux[i].isdigit():
+                        expressao.append(Monomio(int(aux[i])))
+                        i += 1
+                else:
+                    raise ValueError
+            except IndexError: #apanha o erro de quando temos um algarismo como ultima posição
+                try:
+                    if aux[i].isdigit():
+                        expressao.append(Monomio(int(aux[i])))
+                        i += 1
+                    else:
+                        raise ValueError
+                except:
+                    raise ValueError
+
 
         return expressao
 

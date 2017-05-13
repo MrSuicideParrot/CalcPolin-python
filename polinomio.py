@@ -103,7 +103,7 @@ class Polinomio:
         for x1 in range(len(p1.polinomio)):
             aux.append(Monomio(p1[x1].coeficiente, p1[x1].variavel, p1[x1].expoente))
             for x2 in range(len(p2.polinomio)):
-                if p1[x1].variavel == p2[x2].variavel and p1[x1].expoente == p2[x2].expoente:
+                if p2[x2] is not None and p1[x1].variavel == p2[x2].variavel and p1[x1].expoente == p2[x2].expoente:
                     aux[x1].coeficiente += p2[x2].coeficiente
                     p2[x2] = None
                     break
@@ -145,11 +145,11 @@ class Polinomio:
 
     def __str__(self):
         res = ''
-        if self.polinomio is not []:
+        if self.polinomio:
             res = self.polinomio[0].__str__()
 
-        for aux in self.polinomio[1:]:
-            res = res + '+' + aux.__str__()
+            for aux in self.polinomio[1:]:
+                res = res + '+' + aux.__str__()
 
         return res
 
