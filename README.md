@@ -18,6 +18,19 @@ Existem duas caixas de textos, no caso de selecionarmos uma função que só nec
 
 Caso o resultado do último cálculo que seja suportado pelo programa, o botão "Utilizar último valor calculado" ficará habilitado para o utilizador, sempre que ativado o último cáclulo efetuado, aparecerá no campo *Eq1*.
 
+##### Síntaxe dos polinomios
+O programa só aceita os polinómios utilizando a seguinte síntaxe:
+* O monómio escreve-se da sequinte forma:  [coeficiente]\*[parte literal sem grau]^[grau da parte literal], todos os monómios devem respeitar esta forma à expção se for uma constante, nesse caso basta usar a constante. Exemplo monómio dois x ao quadrado e constante 2:
+```
+> 2*x^4
+> 2
+```
+
+* Num Polinomio, entre cada monómio utiliza-se o sinal '+'.
+  Exemplo dois x ao quadrado mais três y ao cubo:
+  ```
+  > 2*x^4 + 3*y^3
+  ```
 
 
 #### Requesitos:
