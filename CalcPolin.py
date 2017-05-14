@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 
-from pyparsing import Word, nums, alphas,Or, OneOrMore, Suppress, Optional
+from pyparsing import Word, nums, alphas,Or, OneOrMore, Suppress, Optional, Literal
 from polinomio import Polinomio, Monomio
 
 class rootWindow:
@@ -56,26 +56,27 @@ class rootWindow:
         :type entry: Entry
         """
         expressao = Polinomio()
-        monomio1 = Word(nums)
-        monomio2 = Word(nums)+Suppress('*')+Word(alphas)+Suppress('^')+Word(nums)
+        decOrnum = (Word(nums+'.'+nums) ^ Word(nums))
+        monomio1 = decOrnum
+        monomio2 = decOrnum + Suppress('*')+Word(alphas)+Suppress('^')+Word(nums)
         parser = (monomio2 ^ monomio1) + Optional(Suppress('+'))
         aux = OneOrMore(parser).parseString(entry.get())
 
         i = 0  # type i: int
         while (i<len(aux)):
             try:
-                if aux[i].isdigit() and aux[i+1] in alphas and aux[i+2].isdigit():
-                        expressao.append(Monomio(int(aux[i]), aux[i+1],int(aux[i+2])))
+                if isNumber(aux[i]) and aux[i+1] in alphas and aux[i+2].isdigit():
+                        expressao.append(Monomio(float(aux[i]), aux[i+1], int(aux[i+2])))
                         i += 3
-                elif aux[i].isdigit():
-                        expressao.append(Monomio(int(aux[i])))
+                elif isNumber(aux[i]):
+                        expressao.append(Monomio(float(aux[i])))
                         i += 1
                 else:
                     raise ValueError
             except IndexError: #apanha o erro de quando temos um algarismo como ultima posição
                 try:
-                    if aux[i].isdigit():
-                        expressao.append(Monomio(int(aux[i])))
+                    if isNumber(aux[i]):
+                        expressao.append(Monomio(float(aux[i])))
                         i += 1
                     else:
                         raise ValueError
@@ -190,7 +191,16 @@ class rootWindow:
 
     def changeState(self):
         self.entrEq1.delete(0, 'end')
-        self.entrEq1.insert(0,self.last)
+        self.entrEq1.insert(0, self.last)
+
+
+'''Função para verificar se é um número'''
+def isNumber(str):
+    try:
+        float(str)
+        return True
+    except ValueError:
+        return False
 
 root = Tk()
 root.title('Calculadora de Polinómios')
