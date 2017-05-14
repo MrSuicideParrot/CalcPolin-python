@@ -1,7 +1,7 @@
 # CalcPolin
 ## *Laboratório de Programação - 2017*
 
-Programa que calcula a derivada, o integral e a normalizaçao de um polinomio ou a soma de dois polinomios.
+Programa que calcula a derivada, o integral e a normalização de um polinómio ou a soma de dois polinómios.
 O programa foi implementado utilizando *Python 3.6* e uma interface gráfica com base no módulo tkinter.
 
 #### Funcionamento:
@@ -16,9 +16,9 @@ Do lado direito dos botões Derivar e Integrar deverão ser inseridas as variáv
 
 Existem duas caixas de textos, no caso de selecionarmos uma função que só necessita de uma equação usará a *Eq1* e só se esta se encontrar vazia é que usará a *Eq2*.
 
-Caso o resultado do último cálculo que seja suportado pelo programa, o botão "Utilizar último valor calculado" ficará habilitado para o utilizador, sempre que ativado o último cáclulo efetuado, aparecerá no campo *Eq1*.
+Caso o resultado do último cálculo seja suportado pelo programa, o botão "Utilizar último valor calculado" ficará habilitado para o utilizador. Sempre que for clicado no botão, o último cáclulo efetuado aparecerá no campo *Eq1*.
 
-##### Síntaxe dos polinomios
+##### Síntaxe dos polinómios
 O programa só aceita os polinómios utilizando a seguinte síntaxe:
 * O monómio escreve-se da sequinte forma:  [coeficiente]\*[parte literal sem grau]^[grau da parte literal], todos os monómios devem respeitar esta forma à expção se for uma constante, nesse caso basta usar a constante. Exemplo monómio dois x ao quadrado e constante 2:
 ```
@@ -26,7 +26,7 @@ O programa só aceita os polinómios utilizando a seguinte síntaxe:
 > 2
 ```
 
-* Num Polinomio, entre cada monómio utiliza-se o sinal '+'.
+* Num polinómio, entre cada monómio utiliza-se o sinal '+'.
   Exemplo dois x ao quadrado mais três y ao cubo:
   ```
   > 2*x^4 + 3*y^3
@@ -38,7 +38,9 @@ Para poder utilizar o programa é necessário os seguintes módulos:
 * tkinter
 * pyparsing
 ----
-O projeto foi desenvolvido utilzando Arch Linux, Python 3.6.1, GCC 6.3.1, pyparsing 2.2.0 e tkinter 8.6.
+O projeto foi testado em:
+* Arch Linux, Python 3.6.1, GCC 6.3.1, pyparsing 2.2.0 e tkinter 8.6.
+* Windows 10, Python 3.6.0, pyparsing 2.2.0 e tkinter 8.6.
 
 #### Trabalho realizado por:
 
