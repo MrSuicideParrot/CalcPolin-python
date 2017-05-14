@@ -48,9 +48,9 @@ class Monomio:
     def __str__(self):
         if self.variavel is not None:
             if self.aux is None:
-                return str(self.coeficiente)+'*'+self.variavel+'^'+str(self.expoente)
+                return "%.2f" % (self.coeficiente) +'*'+self.variavel+'^'+str(self.expoente)
             else:
-                return str(self.coeficiente) + '*' +self.aux+'*'+self.variavel + '^' + str(self.expoente)
+                return str(self.coeficiente) + '*' + self.aux + '*' + self.variavel + '^' + str(self.expoente)
         else:
             return str(self.coeficiente)
 class Polinomio:
