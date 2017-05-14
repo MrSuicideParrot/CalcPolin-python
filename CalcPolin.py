@@ -58,7 +58,7 @@ class rootWindow:
         expressao = Polinomio()
         monomio1 = Word(nums)
         monomio2 = Word(nums)+Suppress('*')+Word(alphas)+Suppress('^')+Word(nums)
-        parser = monomio2^monomio1 +Optional(Suppress('+'))
+        parser = (monomio2 ^ monomio1) + Optional(Suppress('+'))
         aux = OneOrMore(parser).parseString(entry.get())
 
         i = 0  # type i: int
